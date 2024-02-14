@@ -3,6 +3,7 @@ package ru.fastdelivery.domain.common.price;
 import ru.fastdelivery.domain.common.currency.Currency;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * @param amount   значение цены
@@ -15,6 +16,7 @@ public record Price(
         if (isLessThanZero(amount)) {
             throw new IllegalArgumentException("Price Amount cannot be below Zero!");
         }
+        amount = amount.setScale(2, RoundingMode.CEILING);
     }
 
     private static boolean isLessThanZero(BigDecimal price) {
